@@ -4,7 +4,7 @@ boardState = [
 ]
 */
 
-export const boardReducer = (state = {}, action) => {
+export const boardReducer = (state = [], action) => {
   switch (action.type) {
     case "CREATE_BOARD": {
       const newBoard = {
