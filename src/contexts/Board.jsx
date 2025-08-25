@@ -3,7 +3,7 @@ import { boardReducer } from "../reducers/board";
 
 export const BoardContext = createContext();
 
-const BoardProvier = () => {
+export const BoardProvider = () => {
   const [boards, dispatchBoard] = useReducer(boardReducer, []);
 
   <BoardContext.provider value={{ boards, dispatchBoard }}>

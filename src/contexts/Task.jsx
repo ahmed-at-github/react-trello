@@ -3,7 +3,7 @@ import { taskReducer } from "../reducers/task";
 
 export const ListContext = createContext();
 
-const TaskProvier = () => {
+export const TaskProvider = () => {
   const [tasks, dispatchTask] = useReducer(taskReducer, []);
 
   <TaskContext.provider value={{ tasks, dispatchTask }}>
