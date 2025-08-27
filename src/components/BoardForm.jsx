@@ -4,14 +4,14 @@ import { BoardContext } from "../contexts/Board";
 function BoardForm() {
   const [boardTitle, setBoardTitle] = useState("");
   const ref = useRef(null);
-  const { boardDispatch } = useContext(BoardContext);
+  const { dispatchBoard } = useContext(BoardContext);
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(ref);
-    
+
     if (boardTitle.trim() === "") return alert("Please provide a valid title");
-    boardDispatch({ type: "CREATE_BOARD", payload: boardTitle });
+    dispatchBoard({ type: "CREATE_BOARD", payload: { title: boardTitle } });
     setBoardTitle("");
   }
   return (
