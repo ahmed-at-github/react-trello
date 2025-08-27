@@ -19,7 +19,7 @@ function BoardItem({ board }) {
       dispatchList({ type: "REMOVE_LIST", payload: { id: list.id } });
     });
     taskToBeDeleted.forEach((task) => {
-      dispatchList({ type: "REMOVE_TASK", payload: { id: task.id } });
+      dispatchTask({ type: "REMOVE_TASK", payload: { id: task.id } });
     });
   }
   return (
