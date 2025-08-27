@@ -3,10 +3,12 @@ import { boardReducer } from "../reducers/board";
 
 export const BoardContext = createContext();
 
-export const BoardProvider = () => {
+export const BoardProvider = ({ children }) => {
   const [boards, dispatchBoard] = useReducer(boardReducer, []);
 
-  <BoardContext.provider value={{ boards, dispatchBoard }}>
-    {children}
-  </BoardContext.provider>;
+  return (
+    <BoardContext.Provider value={{ boards, dispatchBoard }}>
+      {children}
+    </BoardContext.Provider>
+  );
 };

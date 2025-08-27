@@ -3,10 +3,12 @@ import { listReducer } from "../reducers/list";
 
 export const ListContext = createContext();
 
-export const ListProvider = () => {
+export const ListProvider = ({ children }) => {
   const [lists, dispatchList] = useReducer(listReducer, []);
 
-  <ListContext.provider value={{ lists, dispatchList }}>
-    {children}
-  </ListContext.provider>;
+  return (
+    <ListContext.Provider value={{ lists, dispatchList }}>
+      {children}
+    </ListContext.Provider>
+  );
 };
