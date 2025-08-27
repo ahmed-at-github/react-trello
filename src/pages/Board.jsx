@@ -1,9 +1,12 @@
+import BoardForm from "../components/BoardForm"
+import BoardList from "../components/BoardList"
 
 
 function Board() {
   return (
     <div>
-      Board
+      <BoardForm/>
+      <BoardList/>
     </div>
   )
 }
