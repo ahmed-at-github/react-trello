@@ -11,7 +11,7 @@ function BoardList() {
   return (
     <div>
       {boards.map((board) => (
-        <Link key={board.id} to={`/`}>
+        <Link key={board.id} to={`/${board.id}`}>
           <BoardItem board={board}/>
         </Link>
       ))}
