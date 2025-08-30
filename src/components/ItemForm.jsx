@@ -2,27 +2,29 @@ import React from "react";
 
 function ItemForm({
   listForm,
-  submitHandler,
+  handleOnSubmit,
   title,
-  onChangeHandler,
+  handleOnChange,
   setEditMode,
 }) {
   return (
     <div>
-      <form>
+      <form onSubmit={(e) => handleOnSubmit(e)}>
         <textarea
           placeholder={
             listForm ? "Enter the list title" : "Enter a title for a task"
           }
           value={title}
-          onChange={onChangeHandler}
+          onChange={handleOnChange}
           cols="30"
           rows="2"
         ></textarea>
       </form>
-      <button>
+      <button onClick={(e) => handleOnSubmit(e)}>
         {listForm ? "Add list" : "Add task"}
-        <p onClick={() => setEditMode(false)}>X</p>
+      </button>
+      <button
+         onClick={() => setEditMode(false)}>X
       </button>
     </div>
   );
