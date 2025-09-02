@@ -12,7 +12,7 @@ export const taskReducer = (state = [], action) => {
       };
       return [...state, newTask];
     }
-    case "UPDATE_TASK_TITLE": {
+    case "UPDATE_TASK": {
       const updatedTask = state.map((item) => {
         if (item.id === action.payload.id)
           return {
@@ -26,7 +26,7 @@ export const taskReducer = (state = [], action) => {
     case "REMOVE_TASK": {
       return state.filter((item) => item.id !== action.payload.id);
     }
-    case "CHANGE_LIST_ID": {
+    case "CHANGE_LID_TASK": {
       const updatedTask = state.map((item) => {
         if (item.id === action.payload.id)
           return {
@@ -37,7 +37,7 @@ export const taskReducer = (state = [], action) => {
       });
       return updatedTask;
     }
-    case "REMOVE_LIST_ID": {
+    case "CHANGE_BID_TASK": {
       const updatedTask = state.map((item) => {
         if (item.id === action.payload.id)
           return {
@@ -48,7 +48,6 @@ export const taskReducer = (state = [], action) => {
       });
       return updatedTask;
     }
-
     default:
       return state;
   }

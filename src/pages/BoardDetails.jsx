@@ -5,6 +5,7 @@ import AddItem from "../components/AddItem";
 import ItemForm from "../components/ItemForm";
 import { ListContext } from "../contexts/List";
 import { BoardContext } from "../contexts/Board";
+import TaskList from "../components/TaskList";
 
 function BoardDetails() {
   const [listTitle, setListTitle] = useState("");
@@ -39,7 +40,7 @@ function BoardDetails() {
       {lists
         .filter((item) =>  item.boardId === boardId)
         .map((taskList) => {
-          return <li key={taskList.id}>{taskList.title}</li>;
+          return <TaskList taskList={taskList}/>;
         })}
       {editMode ? (
         <ItemForm

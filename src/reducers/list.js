@@ -13,7 +13,7 @@ export const listReducer = (state = [], action) => {
 
       return [...state, newList];
     }
-    case "UPDATE_LIST_NAME": {
+    case "UPDATE_LIST": {
       const updatedList = state.map((item) => {
         if (item.id === action.payload.id)
           return { ...item, title: action.payload.title };
@@ -21,7 +21,10 @@ export const listReducer = (state = [], action) => {
       });
       return updatedList;
     }
-    case "CHANGE_BOARD_ID_LIST": {
+    case "REMOVE_LIST": {
+      return state.filter((item) => item.id !== action.payload.id);
+    }
+    case "CHANGE_BID_LIST": {
       const updatedList = state.map((item) => {
         if (item.id === action.payload.id)
           return { ...item, boardId: action.payload.boardId };
@@ -29,9 +32,7 @@ export const listReducer = (state = [], action) => {
       });
       return updatedList;
     }
-    case "REMOVE_LIST": {
-      return state.filter((item) => item.id !== action.payload.id);
-    }
+
     case "ADD_TID_LIST": {
       const updatedList = state.map((item) => {
         if (item.id === action.payload.id)

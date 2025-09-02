@@ -15,7 +15,7 @@ export const boardReducer = (state = [], action) => {
       };
       return [...state, newBoard];
     }
-    case "CHANGE_BOARD_NAME": {
+    case "UPDATE_BOARD": {
       return state.map((item) => {
         if (item.id === action.payload.id)
           return { ...item, title: action.payload.title };
