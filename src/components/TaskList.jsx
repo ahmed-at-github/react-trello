@@ -4,6 +4,7 @@ import { ListContext } from "../contexts/List";
 import { BoardContext } from "../contexts/Board";
 import AddItem from "./AddItem";
 import ItemForm from "./ItemForm";
+import TaskCard from "./TaskCard";
 
 function TaskList({ taskList }) {
   const [taskTitle, setTaskTitle] = useState("");
@@ -52,12 +53,13 @@ function TaskList({ taskList }) {
         <button onClick={handleRemoveList}>X</button>
       </p>
       <div>
-        {taskList.tasks.map((taskId) => {
-          console.log(taskId);
-          return allTasks.find((i) => i.id === taskId);
-        })
-        .map((task) => {
-            return <li key={task.id}>{task.title}</li>;
+        {taskList.tasks
+          .map((taskId) => {
+            console.log(taskId);
+            return allTasks.find((i) => i.id === taskId);
+          })
+          .map((task) => {
+            return <TaskCard task={task} />;
           })}
       </div>
 
