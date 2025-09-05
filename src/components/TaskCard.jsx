@@ -10,16 +10,44 @@ function TaskCard({ task, index }) {
   const { dispatchTask } = useContext(TaskContext);
   const { dispatchList } = useContext(ListContext);
   const { dispatchBoard } = useContext(BoardContext);
+  console.log(task);
+  
+
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    dispatchTask({
+      type: "UPDATE_TASK",
+      payload: { id: task.id, title: taskTitle },
+    });
+    setEditMode(false);
+  }
+  function handleRemover(e) {
+    e.preventDefault();
+    dispatchTask({ type: "REMOVE_TASK", payload: { id: task.id } });
+    dispatchList({
+      type: "REMOVE_TID_LIST",
+      payload: { id: task.listId, taskId: task.id },
+    });
+    dispatchBoard({
+      type: "REMOVE_TASKB_ID",
+      payload: { id: task.boardId, taskId: task.id },
+    });
+  }
 
   return (
     <div>
       {editMode ? (
-        <ItemForm />
+        <ItemForm
+          handleOnChange={(e) => setTaskTitle(e.target.value)}
+          title={taskTitle}
+          setEditMode={setEditMode}
+          handleOnSubmit={handleOnSubmit}
+        />
       ) : (
-        <div onClick={0}>
+        <div onClick={() => setEditMode(true)}>
           <p>
             Task title: {taskTitle}
-            <button onClick={0}>X</button>
+            <button onClick={handleRemover}>X</button>
           </p>
         </div>
       )}

@@ -21,7 +21,7 @@ function ItemForm({
         ></textarea>
       </form>
       <button onClick={(e) => handleOnSubmit(e)}>
-        {listForm ? "Add list" : "Add task"}
+        {listForm ? "Add list" : "Add/Update task"}
       </button>
       <button
          onClick={() => setEditMode(false)}>X
