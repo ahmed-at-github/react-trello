@@ -11,7 +11,7 @@ function BoardItem({ board }) {
   function removeHandler(e) {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const taskToBeDeleted = tasks.filter((task) => task.boardId === board.id);
     const listToBeDeleted = lists.filter((list) => list.boardId === board.id);
     dispatchBoard({ type: "REMOVE_BOARD", payload: { id: board.id } });

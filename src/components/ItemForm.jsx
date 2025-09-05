@@ -24,7 +24,7 @@ function ItemForm({
         {listForm ? "Add list" : "Add/Update task"}
       </button>
       <button
-         onClick={() => setEditMode(false)}>X
+         onClick={() => setEditMode(false)}>Cancel
       </button>
     </div>
   );

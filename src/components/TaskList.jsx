@@ -13,6 +13,7 @@ function TaskList({ taskList }) {
   const { tasks: allTasks, dispatchTask } = useContext(TaskContext);
   const { dispatchList } = useContext(ListContext);
   const { dispatchBoard } = useContext(BoardContext);
+
   function handleOnSubmit(e) {
     e.preventDefault();
     const id = Date.now() + "";
@@ -45,7 +46,16 @@ function TaskList({ taskList }) {
 
     setEditMode(false);
   }
-  function handleRemoveList() {}
+  function handleRemoveList() {
+    dispatchList({
+      type: "REMOVE_LIST",
+      payload: { id: taskList.id },
+    });
+    dispatchBoard({
+      type: "REMOVE_LISTB_ID",
+      payload: { id: taskList.boardId, listId: taskList.id },
+    });
+  }
   return (
     <>
       <p>
