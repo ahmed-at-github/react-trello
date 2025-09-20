@@ -35,8 +35,29 @@ function BoardDetails() {
     setEditMode(false);
   }
 
+  function dragEndhandler(result) {
+    console.log(result);
+    const { destination, source, draggableId } = result;
+    if (!destination) return; //dragging outside of drop area
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return; // dragging on the same drop area, and index
+
+    if (destination.droppableId === source.droppableId) {
+      dispatchList({
+        type: "SORT_TID",
+        payload: {
+          draggableId,
+          source,
+          destination,
+        },
+      });
+    }
+  }
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={dragEndhandler}>
       <div>
         <Link to="/">Back to Board</Link>
         {lists

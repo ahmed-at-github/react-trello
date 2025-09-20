@@ -72,8 +72,8 @@ function TaskList({ taskList }) {
                   .map((taskId) => {
                     return allTasks.find((i) => i.id === taskId);
                   })
-                  .map((task) => {
-                    return <TaskCard task={task} />;
+                  .map((task, index) => {
+                    return <TaskCard task={task} index={index} />;
                   })}
               </div>
 

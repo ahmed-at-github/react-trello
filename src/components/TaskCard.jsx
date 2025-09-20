@@ -11,7 +11,7 @@ function TaskCard({ task, index }) {
   const { dispatchTask } = useContext(TaskContext);
   const { dispatchList } = useContext(ListContext);
   const { dispatchBoard } = useContext(BoardContext);
-  console.log(task);
+  // console.log(task);
 
   function handleOnSubmit(e) {
     e.preventDefault();

@@ -54,6 +54,48 @@ export const listReducer = (state = [], action) => {
       });
       return updatedList;
     }
+    case "SORT_TID": {
+      const { destination, source, draggableId } = action.payload;
+      console.log('Hi1');
+      const updatedList = state.map((list) => {
+         console.log('Hi11');
+        if (
+          source.droppableId === destination.droppableId &&
+          list.id === source.droppableId
+        ) {
+          console.log('Hi1');
+          
+          // moving item on the same drop area, but diff index
+          const copyofTasks = [...list.tasks];
+          copyofTasks.splice(source.index, 1);
+          copyofTasks.splice(destination.index, 0, draggableId);
+          return { ...list, tasks: copyofTasks };
+        }
+        if (source.droppableId === list.id) {
+          console.log('Hi2');
+          // moving item on diff drop area, removing dropTask from list
+          return {
+            ...list,
+            tasks: list.tasks.filter((taskId) => taskId !== parseInt(draggableId)),
+          };
+        }
+        if (destination.droppableId === list.id) {
+          console.log('Hi3');
+          //moving item to a diff drop area, adding item to list
+          return {
+            ...list,
+            tasks: [
+              ...list.tasks.slice(0, destination.index),
+              draggableId,
+              ...list.tasks.slice(destination.index),
+            ],
+          };
+        }
+        return list;
+      });
+
+      return updatedList;
+    }
     default:
       return state;
   }
