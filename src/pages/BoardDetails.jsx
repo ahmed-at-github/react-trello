@@ -6,6 +6,7 @@ import ItemForm from "../components/ItemForm";
 import { ListContext } from "../contexts/List";
 import { BoardContext } from "../contexts/Board";
 import TaskList from "../components/TaskList";
+import { DragDropContext } from "@hello-pangea/dnd";
 
 function BoardDetails() {
   const [listTitle, setListTitle] = useState("");
@@ -28,32 +29,34 @@ function BoardDetails() {
       payload: { id: boardId, listId: id },
     });
 
-    console.log(lists);
+    // console.log(lists);
 
     setListTitle("");
     setEditMode(false);
   }
 
   return (
-    <div>
-      <Link to="/">Bact to Board</Link>
-      {lists
-        .filter((item) =>  item.boardId === boardId)
-        .map((taskList) => {
-          return <TaskList taskList={taskList}/>;
-        })}
-      {editMode ? (
-        <ItemForm
-          setEditMode={setEditMode}
-          listForm={true}
-          handleOnSubmit={handleOnSubmit}
-          title={listTitle}
-          handleOnChange={(e) => setListTitle(e.target.value)}
-        />
-      ) : (
-        <AddItem listAdditem={true} setEditMode={setEditMode} />
-      )}
-    </div>
+    <DragDropContext>
+      <div>
+        <Link to="/">Back to Board</Link>
+        {lists
+          .filter((item) => item.boardId === boardId)
+          .map((taskList) => {
+            return <TaskList taskList={taskList} />;
+          })}
+        {editMode ? (
+          <ItemForm
+            setEditMode={setEditMode}
+            listForm={true}
+            handleOnSubmit={handleOnSubmit}
+            title={listTitle}
+            handleOnChange={(e) => setListTitle(e.target.value)}
+          />
+        ) : (
+          <AddItem listAdditem={true} setEditMode={setEditMode} />
+        )}
+      </div>
+    </DragDropContext>
   );
 }
 

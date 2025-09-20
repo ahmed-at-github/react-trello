@@ -3,6 +3,7 @@ import ItemForm from "../components/ItemForm";
 import { TaskContext } from "../contexts/Task";
 import { ListContext } from "../contexts/List";
 import { BoardContext } from "../contexts/Board";
+import { Draggable } from "@hello-pangea/dnd";
 
 function TaskCard({ task, index }) {
   const [taskTitle, setTaskTitle] = useState(task.title);
@@ -11,7 +12,6 @@ function TaskCard({ task, index }) {
   const { dispatchList } = useContext(ListContext);
   const { dispatchBoard } = useContext(BoardContext);
   console.log(task);
-  
 
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -35,23 +35,33 @@ function TaskCard({ task, index }) {
   }
 
   return (
-    <div>
-      {editMode ? (
-        <ItemForm
-          handleOnChange={(e) => setTaskTitle(e.target.value)}
-          title={taskTitle}
-          setEditMode={setEditMode}
-          handleOnSubmit={handleOnSubmit}
-        />
-      ) : (
-        <div onClick={() => setEditMode(true)}>
-          <p>
-            Task title: {taskTitle}
-            <button onClick={handleRemover}>X</button>
-          </p>
-        </div>
-      )}
-    </div>
+    <Draggable draggableId={task.id + ""} index={index}>
+      {(provided) => {
+        return (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            {editMode ? (
+              <ItemForm
+                handleOnChange={(e) => setTaskTitle(e.target.value)}
+                title={taskTitle}
+                setEditMode={setEditMode}
+                handleOnSubmit={handleOnSubmit}
+              />
+            ) : (
+              <div onClick={() => setEditMode(true)}>
+                <p>
+                  Task title: {taskTitle}
+                  <button onClick={handleRemover}>X</button>
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      }}
+    </Draggable>
   );
 }
 

@@ -5,6 +5,7 @@ import { BoardContext } from "../contexts/Board";
 import AddItem from "./AddItem";
 import ItemForm from "./ItemForm";
 import TaskCard from "./TaskCard";
+import { Droppable } from "@hello-pangea/dnd";
 
 function TaskList({ taskList }) {
   const [taskTitle, setTaskTitle] = useState("");
@@ -57,34 +58,42 @@ function TaskList({ taskList }) {
     });
   }
   return (
-    <>
-      <p>
-        List title: {taskList.title}
-        <button onClick={handleRemoveList}>X</button>
-      </p>
-      <div>
-        {taskList.tasks
-          .map((taskId) => {
-            console.log(taskId);
-            return allTasks.find((i) => i.id === taskId);
-          })
-          .map((task) => {
-            return <TaskCard task={task} />;
-          })}
-      </div>
+    <Droppable droppableId={taskList.id+""}>
+      {(provided) => {
+        return (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div>
+              <p>
+                List title: {taskList.title}
+                <button onClick={handleRemoveList}>X</button>
+              </p>
+              <div>
+                {taskList.tasks
+                  .map((taskId) => {
+                    return allTasks.find((i) => i.id === taskId);
+                  })
+                  .map((task) => {
+                    return <TaskCard task={task} />;
+                  })}
+              </div>
 
-      {editMode ? (
-        <ItemForm
-          listForm={false}
-          handleOnSubmit={handleOnSubmit}
-          title={taskTitle}
-          handleOnChange={(e) => setTaskTitle(e.target.value)}
-          setEditMode={setEditMode}
-        />
-      ) : (
-        <AddItem setEditMode={setEditMode} />
-      )}
-    </>
+              {editMode ? (
+                <ItemForm
+                  listForm={false}
+                  handleOnSubmit={handleOnSubmit}
+                  title={taskTitle}
+                  handleOnChange={(e) => setTaskTitle(e.target.value)}
+                  setEditMode={setEditMode}
+                />
+              ) : (
+                <AddItem setEditMode={setEditMode} />
+              )}
+            </div>
+            {provided.placeholder}
+          </div>
+        );
+      }}
+    </Droppable>
   );
 }
 
